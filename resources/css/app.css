@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.my-container {
+    @apply container mx-auto px-4 max-w-[50em];
+}
+
+.my-card + .my-card {
+    margin-top: 3rem;
+}
+
+main {
+    min-height: 80vh;
+}
+
+.highlight {
+    background-color: yellow;
+    color: black;
+}
+
+p {
+    font-size: 16px; /* sets the font size */
+    line-height: 1.5; /* sets the line height to 1.5 times the font size */
+    letter-spacing: 2px;
+    margin-bottom: 1em; /* adds some space below each paragraph */
+}
+
+.details-page li {
+    margin-bottom: 1em;
+    font-size: 1.2rem;
+}
+
+.details-page li:before {
+    content: "\25CF";
+    color: #3498db;
+    display: inline-block;
+    width: 1em;
+    margin-left: 0em;
+}
+
+/* @media (min-width: 320px) {
+  }
+
+  @media screen and(min-width: 640px) {
+  }
+
+  @media screen and(min-width: 768px) {
+  }
+
+  @media screen and(min-width: 991px) {
+  } */
