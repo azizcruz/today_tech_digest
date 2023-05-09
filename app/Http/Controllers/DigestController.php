@@ -37,15 +37,15 @@ class DigestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Digest $digest)
+    public function show(String $slug)
     {
-        //
+        return view('digest.show', ['digest' => Digest::where('slug', $slug)->first()]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Digest $digest)
+    public function edit(Digest $slug)
     {
         //
     }

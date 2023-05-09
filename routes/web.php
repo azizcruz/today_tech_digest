@@ -3,6 +3,8 @@
 use App\Http\Controllers\DigestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaticController;
+use App\Models\Digest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +18,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index', ['msg' => 'all digests']);
+Route::get('/', function (Request $request) {
+    $category = $request->input('category');
+
+    $digests = Digest::with(['category' => function ($query) {
+        return $query->select('id', 'name');
+    }])
+        ->when($category, function ($query) use ($category) {
+            return $query->whereHas('category', function ($query) use ($category) {
+                return $query->where('name', $category);
+            });
+        })
+        ->orderBy('-created_at')
+        ->simplePaginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
+
+    return view('index', ['digests' => $digests]);
 })->name('home');
 
 Route::get('/dashboard', function () {
@@ -26,6 +41,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('digest', DigestController::class);
 Route::get('/today', [DigestController::class, 'today'])->name('digest.today');
+Route::get('digest/{slug}', [DigestController::class, 'show'])->name('digest.show');
 
 
 Route::get('about-us', [StaticController::class, 'aboutUs'])->name('about-us');

@@ -23,11 +23,13 @@ class DigestFactory extends Factory
 
         Storage::put($imagePath, file_get_contents($this->faker->imageUrl()));
 
+        $title = $this->faker->unique()->sentence;
+
         return [
-            'title' => $this->faker->unique()->sentence,
+            'title' => $title,
             'body' => $this->faker->paragraph,
             'keywords' => $this->faker->unique()->sentence,
-            'slug' => $this->faker->unique()->sentence,
+            'slug' => Str::slug($title),
             'category_id' => Category::inRandomOrder()->first()->id,
             'image' => $imagePath,
             'created_at' => $this->faker->dateTimeBetween('-2 years', 'now'),
