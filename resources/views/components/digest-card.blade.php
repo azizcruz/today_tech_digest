@@ -1,13 +1,13 @@
 @props(['digestId', 'imageUrl', 'href', 'category', 'title'])
 
 <section class="relative rounded-lg overflow-hidden h-64 md:h-[25em]" id="{{ $digestId }}">
-    <img id="card-background" class="absolute h-full w-full object-cover" src="{{ $imageUrl }}" alt="Card Background"
-        loading="lazy" />
+    <img id="card-background" class="absolute h-full w-full object-cover" src="/storage/{{ $imageUrl }}"
+        alt="Card Background" loading="lazy" />
     <div class="absolute inset-0 bg-gray-800 bg-opacity-60"></div>
     <div class="absolute inset-0 flex justify-center items-center">
         <div class="text-center">
             <h2 class="text-xl font-bold text-white mb-2 px-8">{{ $title }}</h2>
-            <a href="{{ $href }}" class="btn btn-sm font-bold">Quick Read</a>
+            <a href="{{ $href }}?id={{ $digestId }}" class="btn btn-sm font-bold">Quick Read</a>
         </div>
     </div>
     <a href="" class="absolute bottom-6 left-6 flex items-center">

@@ -39,7 +39,10 @@ class DigestController extends Controller
      */
     public function show(String $slug)
     {
-        return view('digest.show', ['digest' => Digest::where('slug', $slug)->first()]);
+        $digest = Digest::where('slug', $slug)->first();
+        $next = $digest->getNext();
+        $previous = $digest->getPrevious();
+        return view('digest.show', compact('digest', 'previous', 'next'));
     }
 
     /**
