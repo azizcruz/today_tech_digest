@@ -32,15 +32,17 @@
             <label for="my-drawer-4" class="drawer-overlay"></label>
             <ul class="menu p-4 w-[80%] sm:w-80 bg-base-100 text-base-content">
                 <!-- Sidebar content here -->
-                <li class="my-1">
-                    Category
-                    {{-- <Link :href="`/?category=${category.name}`"
-                        :class="[
-                            page.props.categoryPresented === category.name &&
-                            'active',
-                        ]">
-                    {{ category . name }}</Link>
-                </li> --}}
+                <li>
+                    <a href="{{ route('home') }}" class="{{ isset($activeCategory) ? 'active' : '' }}">All</a>
+                </li>
+                @foreach ($categories as $category)
+                    <li class="my-1">
+                        <a href="/?category={{ $category->name }}"
+                            class="{{ isset($activeCategory) && $activeCategory === $category->name ? 'active' : '' }}">
+                            {{ $category->name }}</a>
+                    </li>
+                @endforeach
+
             </ul>
         </div>
     </div>

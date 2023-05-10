@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
     $category = $request->input('category');
-
+    $activeCategory = $category;
     $digests = Digest::with(['category' => function ($query) {
         return $query->select('id', 'name');
     }])
@@ -32,7 +32,7 @@ Route::get('/', function (Request $request) {
         ->orderBy('-created_at')
         ->simplePaginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
 
-    return view('index', ['digests' => $digests]);
+    return view('index', compact('digests', 'activeCategory'));
 })->name('home');
 
 Route::get('/dashboard', function () {

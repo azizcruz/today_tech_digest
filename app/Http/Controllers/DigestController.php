@@ -15,7 +15,11 @@ class DigestController extends Controller
 
     public function today()
     {
-        return view('digest.today', ['msg' => 'today digests']);
+        $todayDigests = Digest::with(['Category' => function ($query) {
+            return $query->select(['id', 'name']);
+        }])->whereDate('created_at', today())->paginate(1)->toArray();
+
+        return view('digest.today', compact('todayDigests'));
     }
 
     /**
@@ -39,7 +43,9 @@ class DigestController extends Controller
      */
     public function show(String $slug)
     {
-        $digest = Digest::where('slug', $slug)->first();
+        $digest = Digest::with(['Category' => function ($query) {
+            return $query->select(['id', 'name']);
+        }])->where('slug', $slug)->first();
         $next = $digest->getNext();
         $previous = $digest->getPrevious();
         return view('digest.show', compact('digest', 'previous', 'next'));
