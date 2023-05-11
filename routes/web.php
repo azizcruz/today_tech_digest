@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
     $category = $request->input('category');
+    $search = $request->input('search');
     $activeCategory = $category;
+
     $digests = Digest::with(['category' => function ($query) {
         return $query->select('id', 'name');
     }])
@@ -42,6 +44,7 @@ Route::get('/dashboard', function () {
 Route::resource('digest', DigestController::class);
 Route::get('/today', [DigestController::class, 'today'])->name('digest.today');
 Route::get('digest/{slug}', [DigestController::class, 'show'])->name('digest.show');
+Route::post('/search', [DigestController::class, 'search'])->name('search-digests');
 
 
 Route::get('about-us', [StaticController::class, 'aboutUs'])->name('about-us');

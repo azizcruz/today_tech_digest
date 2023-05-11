@@ -6,7 +6,7 @@
     <div class="absolute inset-0 bg-gray-800 bg-opacity-60"></div>
     <div class="absolute inset-0 flex justify-center items-center">
         <div class="text-center">
-            <h2 class="text-xl font-bold text-white mb-2 px-8">{{ $title }}</h2>
+            <h2 class="text-xl font-bold text-white mb-2 px-8">{!! $title !!}</h2>
             <a href="{{ $href }}?id={{ $digestId }}" class="btn btn-sm font-bold">Quick Read</a>
         </div>
     </div>

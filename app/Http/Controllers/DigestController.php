@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDigestRequest;
 use App\Http\Requests\UpdateDigestRequest;
 use App\Models\Digest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class DigestController extends Controller
 {
@@ -49,6 +52,36 @@ class DigestController extends Controller
         $next = $digest->getNext();
         $previous = $digest->getPrevious();
         return view('digest.show', compact('digest', 'previous', 'next'));
+    }
+
+    /**
+     * Search 
+     */
+    public function search(Request $request)
+    {
+        $validatedData = $request->validate([
+            'search' => 'nullable|string',
+        ]);
+
+        $search = $validatedData['search'];
+
+
+        $digests = Digest::with(['category' => function ($query) {
+            return $query->select('id', 'name');
+        }])
+            ->when($search, function ($query) use ($search) {
+                return $query->where('title', 'LIKE', '%' . $search . '%');
+            })
+            ->orderBy('-created_at')->get();
+
+        // Highlight the search term in the title
+        $digests = collect($digests)->map(function ($digest) use ($search) {
+            $highlightedTitle = str_replace($search, "<span class='highlight'>$search</span>", $digest->title);
+            $digest->title = $highlightedTitle;
+            return $digest;
+        });
+
+        return view('digest.search-results', compact('digests', 'search'));
     }
 
     /**
