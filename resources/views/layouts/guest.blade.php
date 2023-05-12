@@ -36,7 +36,8 @@
             <ul class="menu p-4 w-[80%] sm:w-80 bg-base-100 text-base-content">
                 <!-- Sidebar content here -->
                 <li>
-                    <a href="{{ route('home') }}" class="{{ isset($activeCategory) ? 'active' : '' }}">All</a>
+                    <a href="{{ route('home') }}"
+                        class="{{ request()->route()->getName === 'home' ? 'active' : '' }}">All</a>
                 </li>
                 @foreach ($categories as $category)
                     <li class="my-1">

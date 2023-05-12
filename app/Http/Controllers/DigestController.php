@@ -72,14 +72,19 @@ class DigestController extends Controller
             ->when($search, function ($query) use ($search) {
                 return $query->where('title', 'LIKE', '%' . $search . '%');
             })
-            ->orderBy('-created_at')->get();
+            ->orderBy('-created_at');
 
-        // Highlight the search term in the title
-        $digests = collect($digests)->map(function ($digest) use ($search) {
-            $highlightedTitle = str_replace($search, "<span class='highlight'>$search</span>", $digest->title);
-            $digest->title = $highlightedTitle;
-            return $digest;
-        });
+        $digests = $search ? $digests->get() : $digests->simplePaginate(12);
+
+        if ($search) {
+            // Highlight the search term in the title
+            $digests = collect($digests)->map(function ($digest) use ($search) {
+                $highlightedTitle = str_replace($search, "<span class='highlight'>$search</span>", $digest->title);
+                $digest->title = $highlightedTitle;
+                return $digest;
+            });
+        }
+
 
         return view('index', compact('digests', 'search'))->fragment('search-results');
     }
