@@ -81,7 +81,7 @@ class DigestController extends Controller
             return $digest;
         });
 
-        return view('digest.search-results', compact('digests', 'search'));
+        return view('index', compact('digests', 'search'))->fragment('search-results');
     }
 
     /**
