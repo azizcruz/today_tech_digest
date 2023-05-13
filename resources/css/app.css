@@ -39,6 +39,29 @@ p {
     margin-left: 0em;
 }
 
+/* Loading styles */
+
+.search-loading {
+    display: none;
+}
+
+.htmx-request.search-loading {
+    display: block !important;
+}
+
+.htmx-request.is-loading-digest {
+    display: none !important;
+}
+
+.is-loading-icon {
+    display: none !important;
+}
+
+.htmx-request.is-loading-icon {
+    display: block !important;
+}
+/* Loading styles */
+
 /* Animations */
 
 .loader {

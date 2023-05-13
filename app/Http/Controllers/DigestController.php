@@ -16,13 +16,24 @@ class DigestController extends Controller
      * Display a listing of today resouces.
      */
 
-    public function today()
+    public function today(Request $request)
     {
+        $validatedData = $request->validate([
+            'navigate' => 'nullable|string'
+        ]);
+
+
+        $navigate = $validatedData ? $validatedData['navigate'] : null;
+
         $todayDigests = Digest::with(['Category' => function ($query) {
             return $query->select(['id', 'name']);
         }])->whereDate('created_at', today())->paginate(1)->toArray();
 
-        return view('digest.today', compact('todayDigests'));
+        if (isset($navigate)) {
+            return view('digest.today', compact('todayDigests'))->fragment('digest-navigations');
+        } else {
+            return view('digest.today', compact('todayDigests'));
+        }
     }
 
     /**
@@ -44,14 +55,24 @@ class DigestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $slug)
+    public function show(String $slug, Request $request)
     {
+        $validatedData = $request->validate([
+            'navigate' => 'nullable|string'
+        ]);
+
+        $navigate = $validatedData ? $validatedData['navigate'] : null;
+
         $digest = Digest::with(['Category' => function ($query) {
             return $query->select(['id', 'name']);
         }])->where('slug', $slug)->first();
         $next = $digest->getNext();
         $previous = $digest->getPrevious();
-        return view('digest.show', compact('digest', 'previous', 'next'));
+        if (isset($navigate)) {
+            return view('digest.show', compact('digest', 'previous', 'next'))->fragment('digest-navigations');
+        } else {
+            return view('digest.show', compact('digest', 'previous', 'next'));
+        }
     }
 
     /**
