@@ -10,7 +10,7 @@
             <a href="{{ $href }}?id={{ $digestId }}" class="btn btn-sm font-bold">Quick Read</a>
         </div>
     </div>
-    <a href="" class="absolute bottom-6 left-6 flex items-center">
+    <a href="{{ route('home', ['category' => $category]) }}" class="absolute bottom-6 left-6 flex items-center">
         <span class="text-white mr-1 font-bold text-sm md:text-md">{{ $category }}</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 text-white">
