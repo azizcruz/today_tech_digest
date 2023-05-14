@@ -29,11 +29,7 @@ class DigestController extends Controller
             return $query->select(['id', 'name']);
         }])->whereDate('created_at', today())->paginate(1)->toArray();
 
-        if (isset($navigate)) {
-            return view('digest.today', compact('todayDigests'))->fragment('digest-navigations');
-        } else {
-            return view('digest.today', compact('todayDigests'));
-        }
+        return view('digest.today', compact('todayDigests'))->fragment($navigate ? 'digest-navigations' : '');
     }
 
     /**
@@ -68,11 +64,8 @@ class DigestController extends Controller
         }])->where('slug', $slug)->first();
         $next = $digest->getNext();
         $previous = $digest->getPrevious();
-        if (isset($navigate)) {
-            return view('digest.show', compact('digest', 'previous', 'next'))->fragment('digest-navigations');
-        } else {
-            return view('digest.show', compact('digest', 'previous', 'next'));
-        }
+
+        return view('digest.show', compact('digest', 'previous', 'next'))->fragment($navigate ? 'digest-navigations' : '');
     }
 
     /**
@@ -87,6 +80,7 @@ class DigestController extends Controller
         $search = $validatedData['search'];
 
 
+
         $digests = Digest::with(['category' => function ($query) {
             return $query->select('id', 'name');
         }])
@@ -95,19 +89,24 @@ class DigestController extends Controller
             })
             ->orderBy('-created_at');
 
-        $digests = $search ? $digests->get() : $digests->simplePaginate(12);
+        $digests = $search ? $digests->get() : $digests->paginate(12)->withPath(route('home'));
 
         if ($search) {
             // Highlight the search term in the title
             $digests = collect($digests)->map(function ($digest) use ($search) {
-                $highlightedTitle = str_replace($search, "<span class='highlight'>$search</span>", $digest->title);
+                $highlightedTitle = preg_replace("/($search)/i", "<span class='highlight'>$1</span>", $digest->title);
                 $digest->title = $highlightedTitle;
                 return $digest;
             });
         }
 
+        if (!$search) {
+            $paginationLinks = json_decode($digests->toJson());
+        } else {
+            $paginationLinks = null;
+        }
 
-        return view('index', compact('digests', 'search'))->fragment('search-results');
+        return view('index', compact('digests', 'search', 'paginationLinks'))->fragment('results');
     }
 
     /**

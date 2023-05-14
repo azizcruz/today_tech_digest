@@ -19,6 +19,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function (Request $request) {
+    $validatedData = $request->validate([
+        'infinite_scroll' => 'nullable|string',
+        'page' => 'nullable|string'
+    ]);
+
+    $infiniteScroll = isset($validatedData['infinite_scroll']) ? $validatedData['infinite_scroll'] : null;
+
     $category = $request->input('category');
     $search = $request->input('search');
     $activeCategory = $category;
@@ -32,9 +39,12 @@ Route::get('/', function (Request $request) {
             });
         })
         ->orderBy('-created_at')
-        ->simplePaginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
+        ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
 
-    return view('index', compact('digests', 'activeCategory'));
+    $paginationLinks = json_decode($digests->toJson());
+
+
+    return view('index', compact('digests', 'activeCategory', 'paginationLinks'))->fragment($infiniteScroll ? 'infinite-scroll-content' : '');
 })->name('home');
 
 Route::get('/dashboard', function () {
