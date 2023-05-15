@@ -7,8 +7,9 @@
     <section>
         <div class="flex justify-end items-center">
 
-            <a href="/#{{ Request::query('id') }}" class="btn"> <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 mb-[1px]">
+            <a href="/?page={{ Request::query('page') }}#{{ Request::query('id') }}" class="btn"> <svg
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-2 mb-[1px]">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
                 Back</a>

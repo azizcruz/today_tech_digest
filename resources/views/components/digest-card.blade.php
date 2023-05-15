@@ -1,4 +1,4 @@
-@props(['digestId', 'imageUrl', 'href', 'category', 'title'])
+@props(['digestId', 'imageUrl', 'href', 'category', 'title', 'page'])
 
 <section class="relative rounded-lg overflow-hidden h-64 md:h-[25em]" id="{{ $digestId }}">
     <img id="card-background" class="absolute h-full w-full object-cover" src="/storage/{{ $imageUrl }}"
@@ -7,7 +7,8 @@
     <div class="absolute inset-0 flex justify-center items-center">
         <div class="text-center">
             <h2 class="text-xl font-bold text-white mb-2 px-8">{!! $title !!}</h2>
-            <a href="{{ $href }}?id={{ $digestId }}" class="btn btn-sm font-bold">Quick Read</a>
+            <a href="{{ $href }}?id={{ $digestId }}{{ isset($page) ? '&page=' . $page : '' }}"
+                class="btn btn-sm font-bold">Quick Read</a>
         </div>
     </div>
     <a href="{{ route('home', ['category' => $category]) }}" class="absolute bottom-6 left-6 flex items-center">

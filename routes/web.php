@@ -44,8 +44,9 @@ Route::get('/', function (Request $request) {
     $paginationLinks = json_decode($digests->toJson());
 
 
+
     return view('index', compact('digests', 'activeCategory', 'paginationLinks'))->fragment($infiniteScroll ? 'infinite-scroll-content' : '');
-})->name('home');
+})->name('home')->middleware(['guest']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
