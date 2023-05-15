@@ -4,7 +4,7 @@
     About us
 @endsection
 
-@section('content')
+@section('main')
     <div class="about-us my-4" scroll-region>
         <h2 class="text-2xl mb-2 font-bold">About Us</h2>
         <p>

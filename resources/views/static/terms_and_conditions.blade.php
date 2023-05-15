@@ -4,7 +4,7 @@
     Terms and Conditions
 @endsection
 
-@section('content')
+@section('main')
     <article>
         <h3 class="font-bold mb-1 text-xl">TERMS AND CONDITIONS</h3>
         <p class="mb-4">

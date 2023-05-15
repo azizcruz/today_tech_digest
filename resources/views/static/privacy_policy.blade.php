@@ -4,7 +4,7 @@
     Privacy Policy
 @endsection
 
-@section('content')
+@section('main')
     <article>
         <header>
             <h1 class="font-bold text-2xl mb-4">Privacy Policy</h1>

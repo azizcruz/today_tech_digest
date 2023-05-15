@@ -3,7 +3,7 @@
 @section('title')
 @endsection
 
-@section('content')
+@section('main')
     <section>
         <div class="flex justify-end items-center">
 

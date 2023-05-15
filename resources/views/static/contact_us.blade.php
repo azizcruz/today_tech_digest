@@ -4,7 +4,7 @@
     Contact
 @endsection
 
-@section('content')
+@section('main')
     <div>
         <h2 class="text-lg font-bold mb-4">Contact</h2>
         <p class="mb-4">

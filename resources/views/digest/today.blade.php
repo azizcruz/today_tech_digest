@@ -6,7 +6,7 @@
 
 
 
-@section('content')
+@section('main')
     @if (count($todayDigests['data']) > 0)
         @foreach ($todayDigests['data'] as $digest)
             <section>
