@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/auth.php';
+
+
 Route::get('/', function (Request $request) {
     $validatedData = $request->validate([
         'infinite_scroll' => 'nullable|string',
@@ -69,4 +72,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+Route::any('{query}', function () {
+    return redirect(route('home'));
+})->where('query', '.*');
