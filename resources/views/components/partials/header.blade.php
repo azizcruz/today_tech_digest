@@ -32,13 +32,37 @@
         </a>
     </div>
     <div class="navbar-end">
-        <div class="hidden md:block">
+        <div class="hidden md:flex flex-wrap">
+            {{-- Admin --}}
+            @auth
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}" class="inline">
+                    @csrf
+                    <button class="btn btn-sm bg-transparent border-none"
+                        onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>
+                    </button>
+                </form>
+                <label class="bg-green-800 hover:bg-green-600 text-white btn btn-sm normal-case mr-1" for="my-add-modal">Add
+                    Digest <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4 ml-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </label>
+            @endauth
+            {{-- Admin --}}
+
+
             <button class="btn btn-sm btn-primary normal-case flex-shrink mr-1">
                 <a href="{{ route('digest.today') }}" class="font-bold normal-case flex-shrink">Today's
                     Digests</a></button>
             <label for="my-drawer-4" class="drawer-button btn btn-sm btn-primary normal-case flex-shrink">
-                by
-                Category</label>
+                by Category</label>
         </div>
         <div class="md:hidden mr-2">
             <label for="my-drawer-4" class="btn btn-ghost btn-circle">

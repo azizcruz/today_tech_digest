@@ -49,15 +49,19 @@ Route::get('/', function (Request $request) {
 
 
     return view('index', compact('digests', 'activeCategory', 'paginationLinks'))->fragment($infiniteScroll ? 'infinite-scroll-content' : '');
-})->name('home')->middleware(['guest']);
+})->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('digest', DigestController::class);
+// Route::resource('digest', DigestController::class);
+Route::middleware(['auth', 'can:create-edit-digest'])->group(function () {
+    Route::post('/digests/{slug}', [DigestController::class, 'store'])->name('digest.store');
+    Route::put('/digests/{slug}', [DigestController::class, 'update'])->name('digest.update');
+});
 Route::get('/today', [DigestController::class, 'today'])->name('digest.today');
-Route::get('digest/{slug}', [DigestController::class, 'show'])->name('digest.show');
+Route::get('/digest/{slug}', [DigestController::class, 'show'])->name('digest.show');
 Route::post('/search', [DigestController::class, 'search'])->name('search-digests');
 
 
@@ -66,11 +70,11 @@ Route::get('contact-us', [StaticController::class, 'contactUs'])->name('contact-
 Route::get('terms-and-conditions', [StaticController::class, 'termsAndConditions'])->name('terms-and-conditions');
 Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('privacy-policy');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 Route::any('{query}', function () {
     return redirect(route('home'));

@@ -27,7 +27,8 @@ class DigestController extends Controller
 
         $todayDigests = Digest::with(['Category' => function ($query) {
             return $query->select(['id', 'name']);
-        }])->whereDate('created_at', today())->paginate(1)->toArray();
+        }])->whereDate('created_at', today())->paginate(1);
+
 
         return view('digest.today', compact('todayDigests'))->fragment($navigate ? 'digest-navigations' : '');
     }
@@ -43,7 +44,7 @@ class DigestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDigestRequest $request)
+    public function store(String $slug)
     {
         //
     }
@@ -120,7 +121,7 @@ class DigestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDigestRequest $request, Digest $digest)
+    public function update(UpdateDigestRequest $request, Digest $digest, String $slug)
     {
         //
     }

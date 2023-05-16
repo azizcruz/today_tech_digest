@@ -21,6 +21,13 @@
 
 <body>
     @yield('content')
+
+
+
+
+
+    <x-blocks.edit-modal></x-blocks.edit-modal>
+    <x-blocks.add-modal></x-blocks.add-modal>
 </body>
 
 </html>

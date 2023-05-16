@@ -21,8 +21,9 @@
                         <x-loaders.loader></x-loaders.loader>
                     </div>
                 </div>
-                <x-digest-view image="{{ $digest->image }}" title="{{ $digest->title }}" created_at="{{ $digest->created_at }}"
-                    category="{{ $digest->category->name }}" body="{{ $digest->body }}"></x-digest-view>
+                <x-digest-view :digest="$digest" image="{{ $digest->image }}" title="{{ $digest->title }}"
+                    created_at="{{ $digest->created_at }}" category="{{ $digest->category->name }}" body="{{ $digest->body }}">
+                </x-digest-view>
 
                 <div>
                     <div class="btn-group grid grid-cols-2 mt-6">

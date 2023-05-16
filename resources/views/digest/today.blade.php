@@ -7,8 +7,8 @@
 
 
 @section('main')
-    @if (count($todayDigests['data']) > 0)
-        @foreach ($todayDigests['data'] as $digest)
+    @if (count($todayDigests) > 0)
+        @foreach ($todayDigests as $digest)
             <section>
                 <h3 class="text-2xl text-center font-bold mt-4">Today's Digests</h3>
                 <p class="text-center max-w-md mx-auto text-sm opacity-60">
@@ -24,30 +24,31 @@
                         </div>
                         <div class="flex justify-between items-center">
 
-                            <x-navigation-button url="{{ $todayDigests['first_page_url'] }}&navigate=1" title="First"
-                                classes="btn btn-sm text-xs !text-blue-200 {{ $todayDigests['current_page'] != 1 ? '' : 'pointer-events-none opacity-50' }}">
+                            <x-navigation-button url="{{ $todayDigests->url(1) }}&navigate=1" title="First"
+                                classes="btn btn-sm text-xs !text-blue-200 {{ $todayDigests->currentPage() != 1 ? '' : 'pointer-events-none opacity-50' }}">
                             </x-navigation-button>
                             <button class="btn mx-auto !text-blue-200"
-                                disabled>{{ $todayDigests['current_page'] }}/{{ $todayDigests['total'] }}</button>
-                            <x-navigation-button url="{{ $todayDigests['last_page_url'] }}&navigate=1" title="Last"
-                                classes="btn btn-sm text-xs !text-blue-200 {{ $todayDigests['current_page'] !== $todayDigests['total'] ? '' : 'pointer-events-none opacity-50' }}">
+                                disabled>{{ $todayDigests->currentPage() }}/{{ $todayDigests->total() }}</button>
+                            <x-navigation-button url="{{ $todayDigests->url($todayDigests->lastPage()) }}&navigate=1"
+                                title="Last"
+                                classes="btn btn-sm text-xs !text-blue-200 {{ $todayDigests->currentPage() !== $todayDigests->total() ? '' : 'pointer-events-none opacity-50' }}">
                             </x-navigation-button>
 
                         </div>
-                        <x-digest-view image="{{ $digest['image'] }}" title="{{ $digest['title'] }}"
-                            created_at="{{ $digest['created_at'] }}" category="{{ $digest['category']['name'] }}"
-                            body="{{ $digest['body'] }}"></x-digest-view>
+                        <x-digest-view :digest="$digest" image="{{ $digest->image }}" title="{{ $digest->title }}"
+                            created_at="{{ $digest->created_at }}" category="{{ $digest->category->name }}"
+                            body="{{ $digest->body }}"></x-digest-view>
 
 
                         </article>
                         <div>
                             <div class="btn-group grid grid-cols-2 mt-6">
-                                <x-navigation-button url="{{ $todayDigests['prev_page_url'] }}&navigate=1" title="Previous"
-                                    classes="btn btn-outline {{ $todayDigests['prev_page_url'] ? '' : 'pointer-events-none opacity-50' }}">
+                                <x-navigation-button url="{{ $todayDigests->previousPageUrl() }}&navigate=1" title="Previous"
+                                    classes="btn btn-outline {{ $todayDigests->previousPageUrl() ? '' : 'pointer-events-none opacity-50' }}">
                                 </x-navigation-button>
 
-                                <x-navigation-button url="{{ $todayDigests['next_page_url'] }}&navigate=1" title="Next"
-                                    classes="btn btn-outline {{ $todayDigests['next_page_url'] ? '' : 'pointer-events-none opacity-50' }}">
+                                <x-navigation-button url="{{ $todayDigests->nextPageUrl() }}&navigate=1" title="Next"
+                                    classes="btn btn-outline {{ $todayDigests->nextPageUrl() ? '' : 'pointer-events-none opacity-50' }}">
                                 </x-navigation-button>
 
                             </div>
