@@ -56,8 +56,8 @@ Route::get('/', function (Request $request) {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::resource('digest', DigestController::class);
-Route::middleware(['auth', 'can:create-edit-digest'])->group(function () {
-    Route::post('/digests/{slug}', [DigestController::class, 'store'])->name('digest.store');
+Route::middleware(['auth', 'can:create-digest'])->group(function () {
+    Route::post('/digests', [DigestController::class, 'store'])->name('digest.store');
     Route::put('/digests/{slug}', [DigestController::class, 'update'])->name('digest.update');
 });
 Route::get('/today', [DigestController::class, 'today'])->name('digest.today');

@@ -31,9 +31,11 @@
             <img src="{{ asset('images/logo.png') }}" alt="today tech digest logo" width="200" />
         </a>
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end" x-data="{ toggleAddModal: false, toggleEditModal: false }">
         <div class="hidden md:flex flex-wrap">
             {{-- Admin --}}
+            <x-blocks.edit-modal></x-blocks.edit-modal>
+            <x-blocks.add-modal></x-blocks.add-modal>
             @auth
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}" class="inline">
@@ -48,12 +50,13 @@
                         </svg>
                     </button>
                 </form>
-                <label class="bg-green-800 hover:bg-green-600 text-white btn btn-sm normal-case mr-1" for="my-add-modal">Add
+                <button class="bg-green-800 hover:bg-green-600 text-white btn btn-sm normal-case mr-1"
+                    x-on:click="toggleAddModal = true">
                     Digest <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-4 h-4 ml-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                </label>
+                </button>
             @endauth
             {{-- Admin --}}
 

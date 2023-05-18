@@ -29,6 +29,13 @@
                 </select>
             </div>
 
+            <div class="form-control w-full mt-6">
+                <input type="file" class="file-input file-input-bordered w-full" name="image" />
+                <label class="label">
+                    <span class="label-text-alt"></span>
+                </label>
+            </div>
+
             <div class="form-control">
                 <label class="label">
 

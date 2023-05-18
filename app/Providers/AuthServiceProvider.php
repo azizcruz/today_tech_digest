@@ -27,5 +27,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-edit-digest', function ($user, $digest) {
             return $user->isAdmin && $digest->user_id === $user->id;
         });
+
+        Gate::define('create-digest', function ($user) {
+            return $user->isAdmin;
+        });
     }
 }

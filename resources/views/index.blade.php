@@ -16,13 +16,15 @@
                                 <x-digest-card digestId="{{ $digest->id }}" imageUrl="{{ $digest->image }}"
                                     category="{{ $digest->category->name }}"
                                     href="{{ route('digest.show', ['slug' => $digest->slug]) }}" title="{!! $digest->title !!}"
-                                    page="{{ isset($paginationLinks) ? $paginationLinks->current_page : '' }}" />
+                                    page="{{ isset($paginationLinks) ? $paginationLinks->current_page : '' }}"
+                                    is_published="{{ $digest->is_published }}" />
                             </div>
                         @else
                             <x-digest-card digestId="{{ $digest->id }}" imageUrl="{{ $digest->image }}"
                                 category="{{ $digest->category->name }}"
                                 href="{{ route('digest.show', ['slug' => $digest->slug]) }}" title="{!! $digest->title !!}"
-                                page="{{ isset($paginationLinks) ? $paginationLinks->current_page : '' }}" />
+                                page="{{ isset($paginationLinks) ? $paginationLinks->current_page : '' }}"
+                                is_published="{{ $digest->is_published }}" />
                         @endif
                     @endforeach
                 @endfragment

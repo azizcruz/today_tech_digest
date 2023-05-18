@@ -6,6 +6,8 @@ use App\Http\Requests\StoreDigestRequest;
 use App\Http\Requests\UpdateDigestRequest;
 use App\Models\Digest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
@@ -44,9 +46,45 @@ class DigestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(String $slug)
+    public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|min:60|max:70|unique:digests',
+            'body' => 'required|string',
+            'metaDescription' => 'required|string',
+            'category' => 'required|string|exists:categories,id',
+            'keywords' => 'required|string',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+
+        if ($validator->fails()) {
+            return view('components.blocks.add-modal', ['errors' => $validator->errors(), 'oldInput' => $request->input()])->fragment('add-digest-modal-content');
+        }
+
+        $validatedData = $validator->validated();
+
+        $imageName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+
+
+        $imagePath = $request->file('image')->store('public/images', $imageName);
+        $imageUrl = Storage::url($imagePath);
+
+        dd($imageUrl);
+
+
+        $digest = new Digest;
+        $digest->title = $validatedData['title'];
+        $digest->body = $validatedData['body'];
+        $digest->meta_description = $validatedData['metaDescription'];
+        $digest->keywords = $validatedData['keywords'];
+        $digest->category_id = $validatedData['category'];
+        $digest->slug = Str::slug($validatedData['title']);
+        $digest->image = $imageUrl;
+
+        $digest->save();
+
+        return view('components.blocks.add-modal')->with('success', 'Digest Was Created Successfully');
     }
 
     /**
