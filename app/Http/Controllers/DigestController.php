@@ -64,14 +64,10 @@ class DigestController extends Controller
 
         $validatedData = $validator->validated();
 
-        $imageName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
 
+        $imageUrl = Storage::putFile('images', $request->file('image'));
 
-        $imagePath = $request->file('image')->store('public/images', $imageName);
-        $imageUrl = Storage::url($imagePath);
-
-        dd($imageUrl);
-
+        // dd($imageUrl);
 
         $digest = new Digest;
         $digest->title = $validatedData['title'];
@@ -81,6 +77,9 @@ class DigestController extends Controller
         $digest->category_id = $validatedData['category'];
         $digest->slug = Str::slug($validatedData['title']);
         $digest->image = $imageUrl;
+        $digest->user_id = $request->user()->id;
+
+
 
         $digest->save();
 

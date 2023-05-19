@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Digest::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->isAdmin === 1;
+    }
 }

@@ -11,8 +11,8 @@
                 @fragment('infinite-scroll-content')
                     @foreach ($digests as $digest)
                         @if ($loop->last && isset($paginationLinks))
-                            <div hx-get="{{ $paginationLinks->next_page_url }}&infinite_scroll=1" hx-trigger="intersect"
-                                hx-swap="afterend">
+                            <div hx-get="{{ $paginationLinks->next_page_url }}&infinite_scroll=1"
+                                hx-trigger="{{ $paginationLinks->total > 12 ? 'intersect once' : '' }}" hx-swap="afterend">
                                 <x-digest-card digestId="{{ $digest->id }}" imageUrl="{{ $digest->image }}"
                                     category="{{ $digest->category->name }}"
                                     href="{{ route('digest.show', ['slug' => $digest->slug]) }}" title="{!! $digest->title !!}"

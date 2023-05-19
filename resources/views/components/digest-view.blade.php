@@ -52,7 +52,7 @@
 <article class="mt-4 is-loading-digest loading-digest">
     <img src="/storage/{{ $digest->image }}" alt="{{ $digest->title }} image"
         class="rounded-lg object-cover max-h-[20rem] md:max-h-[20rem] w-full" loading="lazy" />
-    <h1 class="text-3xl font-bold text-orange-100 mt-8">
+    <h1 class="text-3xl font-bold text-orange-100 mt-8 w-full break-words">
         {{ $digest->title }}
     </h1>
     <div class="my-4 border-t-amber-100"></div>

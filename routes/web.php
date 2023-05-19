@@ -35,16 +35,19 @@ Route::get('/', function (Request $request) {
 
     $digests = Digest::with(['category' => function ($query) {
         return $query->select('id', 'name');
-    }])
+    }])->forAdmin()
         ->when($category, function ($query) use ($category) {
             return $query->whereHas('category', function ($query) use ($category) {
                 return $query->where('name', $category);
             });
         })
-        ->orderBy('-created_at')
+        ->orderByDesc('created_at')
         ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
 
     $paginationLinks = json_decode($digests->toJson());
+
+
+
 
 
 
