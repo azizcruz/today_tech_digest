@@ -33,16 +33,7 @@ Route::get('/', function (Request $request) {
     $search = $request->input('search');
     $activeCategory = $category;
 
-    $digests = Digest::with(['category' => function ($query) {
-        return $query->select('id', 'name');
-    }])->forAdmin()
-        ->when($category, function ($query) use ($category) {
-            return $query->whereHas('category', function ($query) use ($category) {
-                return $query->where('name', $category);
-            });
-        })
-        ->orderByDesc('created_at')
-        ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
+    $digests = Digest::queryDigests($category);
 
     $paginationLinks = json_decode($digests->toJson());
 
@@ -62,6 +53,7 @@ Route::get('/', function (Request $request) {
 Route::middleware(['auth', 'can:create-digest'])->group(function () {
     Route::post('/digests', [DigestController::class, 'store'])->name('digest.store');
     Route::put('/digests/{slug}', [DigestController::class, 'update'])->name('digest.update');
+    Route::delete('/digests/{slug}', [DigestController::class, 'destroy'])->name('digest.destroy');
 });
 Route::get('/today', [DigestController::class, 'today'])->name('digest.today');
 Route::get('/digest/{slug}', [DigestController::class, 'show'])->name('digest.show');

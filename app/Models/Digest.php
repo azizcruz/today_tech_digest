@@ -43,4 +43,17 @@ class Digest extends Model
             return $query->where('is_published', 1);
         }
     }
+
+    public static function queryDigests($category = null)
+    {
+        return  Digest::with(['category:id,name'])
+            ->when($category, function ($query) use ($category) {
+                $query->whereHas('category', function ($query) use ($category) {
+                    $query->where('name', $category);
+                });
+            })
+            ->forAdmin()
+            ->latest('created_at')
+            ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
+    }
 }

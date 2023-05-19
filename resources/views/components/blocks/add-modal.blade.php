@@ -8,13 +8,15 @@
         @endif
 
         <div class="modal" id="add-modal">
+
             <div class="modal-box relative">
+                <button for="my-add-modal" x-on:click="toggleAddModal = false"
+                    class="btn btn-sm btn-circle absolute right-2 top-2">✕</button>
                 <form id="add-digest-form" hx-post="{{ route('digest.store') }}" x-data="{ title: '' }"
                     hx-target="#add-digest-wrapper" hx-swap="outerHTML" enctype="multipart/form-data">
                     @csrf
 
-                    <button for="my-add-modal" x-on:click="toggleAddModal = false"
-                        class="btn btn-sm btn-circle absolute right-2 top-2">✕</button>
+
                     <h3 class="text-lg font-bold mb-4">New Digest</h3>
                     <input type="text" placeholder="Title" name="title" class="input input-bordered w-full max-w-full"
                         value="{{ $oldInput['title'] ?? '' }}" x-model="title" />

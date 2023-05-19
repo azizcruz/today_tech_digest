@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Requests\StoreDigestRequest;
 use App\Http\Requests\UpdateDigestRequest;
 use App\Models\Digest;
@@ -97,13 +98,15 @@ class DigestController extends Controller
 
         $navigate = $validatedData ? $validatedData['navigate'] : null;
 
-        $digest = Digest::with(['Category' => function ($query) {
-            return $query->select(['id', 'name']);
-        }])->where('slug', $slug)->first();
-        $next = $digest->getNext();
-        $previous = $digest->getPrevious();
+        try {
+            $digest = Digest::with(['Category:id,name'])->where('slug', $slug)->first();
+            $next = $digest->getNext();
+            $previous = $digest->getPrevious();
 
-        return view('digest.show', compact('digest', 'previous', 'next'))->fragment($navigate ? 'digest-navigations' : '');
+            return view('digest.show', compact('digest', 'previous', 'next',))->fragment($navigate ? 'digest-navigations' : '');
+        } catch (\Throwable $th) {
+            abort(404);
+        }
     }
 
     /**
@@ -166,8 +169,16 @@ class DigestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Digest $digest)
+    public function destroy(string $slug)
     {
-        //
+        $digest = Digest::where('slug', $slug)->delete();
+
+        if (!$digest) {
+            return view('index')->with('error', 'Does not exist');
+        }
+
+        $digests = Digest::queryDigests();
+
+        return 'OK';
     }
 }
