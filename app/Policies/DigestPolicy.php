@@ -37,7 +37,7 @@ class DigestPolicy
      */
     public function update(User $user, Digest $digest): bool
     {
-        //
+        return true;
     }
 
     /**

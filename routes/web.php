@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-require __DIR__ . '/auth.php';
-
 
 Route::get('/', function (Request $request) {
     $validatedData = $request->validate([
@@ -38,10 +36,6 @@ Route::get('/', function (Request $request) {
     $paginationLinks = json_decode($digests->toJson());
 
 
-
-
-
-
     return view('index', compact('digests', 'activeCategory', 'paginationLinks'))->fragment($infiniteScroll ? 'infinite-scroll-content' : '');
 })->name('home');
 
@@ -49,12 +43,16 @@ Route::get('/', function (Request $request) {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::resource('digest', DigestController::class);
+Route::resource('digest', DigestController::class)->only(['update']);
+
+
 Route::middleware(['auth', 'can:create-digest'])->group(function () {
+
     Route::post('/digests', [DigestController::class, 'store'])->name('digest.store');
-    Route::put('/digests/{slug}', [DigestController::class, 'update'])->name('digest.update');
     Route::delete('/digests/{slug}', [DigestController::class, 'destroy'])->name('digest.destroy');
 });
+
+
 Route::get('/today', [DigestController::class, 'today'])->name('digest.today');
 Route::get('/digest/{slug}', [DigestController::class, 'show'])->name('digest.show');
 Route::post('/search', [DigestController::class, 'search'])->name('search-digests');
@@ -70,6 +68,9 @@ Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
+
+
+require __DIR__ . '/auth.php';
 
 Route::any('{query}', function () {
     return redirect(route('home'));

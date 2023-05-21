@@ -34,7 +34,6 @@
     <div class="navbar-end" x-data="{ toggleAddModal: false, toggleEditModal: false }">
         <div class="hidden md:flex flex-wrap">
             {{-- Admin --}}
-            <x-blocks.edit-modal></x-blocks.edit-modal>
             <x-blocks.add-modal></x-blocks.add-modal>
             @auth
                 <!-- Authentication -->

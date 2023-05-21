@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Policies\DigestPolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,15 @@ use Illuminate\Support\Facades\Auth;
 class Digest extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'meta_description',
+        'keywords',
+        'body',
+        'category_id',
+        'image'
+    ];
 
     public function getRouteKeyName()
     {
@@ -54,6 +64,6 @@ class Digest extends Model
             })
             ->forAdmin()
             ->latest('created_at')
-            ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id']);
+            ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id', 'meta_description']);
     }
 }
