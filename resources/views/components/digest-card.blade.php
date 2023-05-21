@@ -21,13 +21,17 @@
             >Quick Read</a>
         </div>
     </div>
-    <section class="absolute bottom-6 right-6 flex justify-between w-20">
+    <section
+        class="absolute bottom-6 right-6 flex justify-between w-20"
+        x-data="{ toggleEditModal: false }"
+    >
         {{-- Admin --}}
+        <x-blocks.edit-modal :digest="$digest"></x-blocks.edit-modal>
         <label
-            for="my-edit-modal-{{ $digest->id }}"
+            x-on:click="toggleEditModal = true"
             class="cursor-pointer"
         >
-            <x-blocks.edit-modal :digest="$digest"></x-blocks.edit-modal>
+
 
             <svg
                 xmlns="http://www.w3.org/2000/svg"

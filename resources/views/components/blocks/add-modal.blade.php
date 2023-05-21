@@ -8,16 +8,16 @@
         />
 
 
-        @if ($message = Session::get('success'))
-            <p class="my-4 bg-green-500 text-white p-4">{{ $message }}</p>
-        @endif
-
         <div
             class="modal"
             id="add-modal"
         >
 
             <div class="modal-box relative">
+                @if (!empty($success))
+                    <p class="bg-green-500 text-white p-2 mb-2 message">{{ $success }}</p>
+                @endif
+
                 <button
                     for="my-add-modal"
                     x-on:click="toggleAddModal = false"

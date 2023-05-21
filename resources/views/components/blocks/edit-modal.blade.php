@@ -1,25 +1,24 @@
 @props(['digest'])
 
 @fragment('edit-digest-modal-content')
-    <section
-        id="edit-digest-wrapper"
-        x-data="{ toggleEditModal: false }"
-    >
-        @if ($message = Session::get('success'))
-            <p class="my-4 bg-green-500 text-white p-4">{{ $message }}</p>
-        @endif
-
+    <section id="edit-digest-wrapper">
         <input
             type="checkbox"
-            id="my-edit-modal-{{ $digest->id }}"
             x-model="toggleEditModal"
+            id="my-edit-modal"
             class="modal-toggle"
         />
         <div
             class="modal"
+            :class="{ 'modal-open': toggleEditModal }"
             id="edit-modal"
         >
             <div class="modal-box relative">
+                @if (!empty($success))
+                    <p class="bg-green-500 text-white p-2 mb-2 message">
+                        {{ $success }}
+                    </p>
+                @endif
                 <form
                     id="edit-digest-form"
                     hx-post="{{ route('digest.update', $digest) }}"
@@ -29,8 +28,8 @@
                     hx-target="#edit-digest-wrapper"
                 >
 
-                    @if ($message = Session::get('success'))
-                        <p class="my-4 bg-green-500 text-white p-4">{{ $message }}</p>
+                    @if (session()->has('success'))
+                        <p class="my-4 bg-green-500 text-white p-4">{{ session('success') }}</p>
                     @endif
 
                     @csrf
@@ -39,7 +38,7 @@
                     <label
                         for="my-edit-modal-{{ $digest->id }}"
                         class="btn btn-sm btn-circle absolute right-2 top-2"
-                        x-on:click="toggleAddModal{{ $digest->id }} = false"
+                        x-on:click="toggleEditModal = false"
                     >✕</label>
                     <h3 class="text-lg font-bold">Edit Digest</h3>
                     <input
