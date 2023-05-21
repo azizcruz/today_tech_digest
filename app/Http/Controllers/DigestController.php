@@ -68,8 +68,6 @@ class DigestController extends Controller
 
         $imageUrl = Storage::putFile('images', $request->file('image'));
 
-        // dd($imageUrl);
-
         $digest = new Digest;
         $digest->title = $validatedData['title'];
         $digest->body = $validatedData['body'];
@@ -163,19 +161,30 @@ class DigestController extends Controller
      */
     public function update(Digest $digest, Request $request)
     {
+
+
         $this->authorize('update', $digest);
 
         if (!$request->input('image')) {
-            $request->merge(['image' => $digest->image]);
+            $request->merge(['image' => $request->input('image') ?? $digest->image]);
         }
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|min:60|max:70|unique:digests' . ',id,' . $digest->id,
             'body' => 'required|string',
-            'metaDescription' => 'required|string',
-            'category' => 'required|string|exists:categories,id',
+            'meta_description' => 'required|string',
+            'category_id' => 'required|string|exists:categories,id',
             'keywords' => 'required|string',
-            'image' => 'image|mimes:png,jpg,jpeg|max:2048'
+            'image' => [function ($attribute, $value, $fail) use ($request, $digest) {
+                if (!$request->hasFile('image') && $digest->image !== $request->input('image')) {
+                    $fail($attribute . 'must be a valid image');
+                };
+
+                if ($request->hasFile('image')) {
+                    $imageUrl = Storage::putFile('images', $request->file('image'));
+                    $request->merge(['image' => $imageUrl]);
+                }
+            }]
         ]);
 
 
@@ -187,9 +196,9 @@ class DigestController extends Controller
             return view('components.blocks.edit-modal', compact('oldInput', 'errors', 'digest'))->fragment('edit-digest-modal-content');
         }
 
-        $updatedDigest = $digest->update($validator->validated());
+        $digest->update($request->input());
 
-        return view('components.blocks.edit-modal', ['digest' => $updatedDigest])->with('success', 'Digest Was Updated Successfully');
+        return view('components.blocks.edit-modal', ['digest' => $digest])->with('success', 'Digest Was Updated Successfully')->fragment('edit-digest-modal-content');;
     }
 
     /**

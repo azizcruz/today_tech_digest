@@ -5,6 +5,10 @@
         id="edit-digest-wrapper"
         x-data="{ toggleEditModal: false }"
     >
+        @if ($message = Session::get('success'))
+            <p class="my-4 bg-green-500 text-white p-4">{{ $message }}</p>
+        @endif
+
         <input
             type="checkbox"
             id="my-edit-modal-{{ $digest->id }}"
@@ -51,7 +55,7 @@
                     <input
                         type="text"
                         placeholder="Meta Description"
-                        name="metaDescription"
+                        name="meta_description"
                         class="input input-bordered w-full max-w-full"
                         value="{{ $oldInput['meta_description'] ?? $digest->meta_description }}"
                     />
@@ -71,12 +75,12 @@
                     <div class="form-control mt-4">
                         <select
                             class="select  select-bordered w-full max-w-full"
-                            name="category"
+                            name="category_id"
                         >
                             @foreach ($categories as $category)
                                 <option
                                     value="{{ $category->id }}"
-                                    {{ (($oldInput ?? false) && $oldInput['category'] === $category) || $digest->category_id === $category->id ? 'selected' : '' }}
+                                    {{ (($oldInput ?? false) && $oldInput['category_id'] === $category->id) || $digest->category_id === $category->id ? 'selected' : '' }}
                                 >{{ $category->name }}</option>
                             @endforeach
                         </select>
