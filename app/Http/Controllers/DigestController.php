@@ -198,7 +198,7 @@ class DigestController extends Controller
 
         $digest->update($request->input());
 
-        return view('components.blocks.edit-modal', ['digest' => $digest])->with('success', 'Digest Was Updated Successfully')->fragment('edit-digest-modal-content');;
+        return view('components.blocks.edit-modal', ['digest' => $digest])->with('success', 'Digest Was Updated Successfully')->fragment('edit-digest-modal-content');
     }
 
     /**
@@ -215,5 +215,25 @@ class DigestController extends Controller
         $digests = Digest::queryDigests();
 
         return 'OK';
+    }
+
+    /**
+     * To publish unpublish digest
+     */
+    public function toPublish(Digest $digest, Request $request)
+
+    {
+
+        $validated = $request->validate(['from' => 'required|string']);
+
+        $digest->is_published = $digest->is_published === 1 ? 0 : 1;
+
+        $digest->save();
+
+        if ($validated['from'] === 'card') {
+            return view('components.digest-card', compact('digest'))->fragment('publish-section');
+        } else {
+            return view('components.digest-view', compact('digest'))->fragment('publish-section');
+        }
     }
 }

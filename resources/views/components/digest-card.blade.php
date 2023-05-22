@@ -2,21 +2,21 @@
 
 <section
     class="relative rounded-lg overflow-hidden h-64 md:h-[25em]"
-    id="{{ $digestId }}"
+    id="{{ $digest->id }}"
 >
     <img
         id="card-background"
         class="absolute h-full w-full object-cover"
-        src="/storage/{{ $imageUrl }}"
+        src="/storage/{{ $digest->image }}"
         alt="Card Background"
         loading="lazy"
     />
     <div class="absolute inset-0 bg-gray-800 bg-opacity-60"></div>
     <div class="absolute inset-0 flex justify-center items-center">
         <div class="text-center w-full break-words">
-            <h2 class="text-xl font-bold text-white mb-2 px-8">{{ $title }}</h2>
+            <h2 class="text-xl font-bold text-white mb-2 px-8">{!! $digest->title !!}</h2>
             <a
-                href="{{ $href }}?id={{ $digestId }}{{ isset($page) ? '&page=' . $page : '' }}"
+                href="{{ route('digest.show', ['slug' => $digest->slug]) }}?id={{ $digest->id }}{{ isset($page) ? '&page=' . $page : '' }}"
                 class="btn btn-sm font-bold"
             >Quick Read</a>
         </div>
@@ -81,51 +81,63 @@
             </svg>
         </a>
 
-        @if (!$is_published)
-            <a href="">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
+        @fragment('publish-section')
+            <form
+                hx-patch="{{ route('digest.toPublish', $digest) }}"
+                method="POST"
+                swap="outerHTML"
+                target="this"
+            >
+                @csrf
+                @method('PATCH')
+                <input
+                    type="hidden"
+                    name="from"
+                    value="card"
                 >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-                    />
-                </svg>
-            </a>
-        @endif
-
-        @if ($is_published)
-            <a href="">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="w-6 h-6"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M3 3l1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 011.743-1.342 48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664L19.5 19.5"
-                    />
-                </svg>
-            </a>
-        @endif
+                <button type="submit">
+                    @if ($digest->is_published)
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 text-green-400"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                            />
+                        </svg>
+                    @else
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3 3l1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 011.743-1.342 48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664L19.5 19.5"
+                            />
+                        </svg>
+                    @endif
+                </button>
+            </form>
+        @endfragment
 
         {{-- Admin --}}
     </section>
     <a
-        href="{{ route('home', ['category' => $category]) }}"
+        href="{{ route('home', ['category' => $digest->category->name]) }}"
         class="absolute bottom-6 left-6 flex items-center"
     >
-        <span class="text-white mr-1 font-bold text-sm md:text-md">{{ $category }}</span>
+        <span class="text-white mr-1 font-bold text-sm md:text-md">{{ $digest->category->name }}</span>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

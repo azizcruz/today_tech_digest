@@ -47,7 +47,7 @@ Route::resource('digest', DigestController::class)->only(['update']);
 
 
 Route::middleware(['auth', 'can:create-digest'])->group(function () {
-
+    Route::patch('digest/publish/{digest}', [DigestController::class, 'toPublish'])->name('digest.toPublish');
     Route::post('/digests', [DigestController::class, 'store'])->name('digest.store');
     Route::delete('/digests/{slug}', [DigestController::class, 'destroy'])->name('digest.destroy');
 });
