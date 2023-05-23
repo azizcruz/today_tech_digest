@@ -236,4 +236,20 @@ class DigestController extends Controller
             return view('components.digest-view', compact('digest'))->fragment('publish-section');
         }
     }
+
+
+    /**
+     * Publish to facebook
+     */
+    public function publishToFacebook(Digest $digest)
+    {
+    }
+
+
+    /**
+     * Publish to twitter
+     */
+    public function publishToTwitter(Digest $digest)
+    {
+    }
 }

@@ -27,27 +27,6 @@
     >
         {{-- Admin --}}
         <x-blocks.edit-modal :digest="$digest"></x-blocks.edit-modal>
-        <label
-            x-on:click="toggleEditModal = true"
-            class="cursor-pointer"
-        >
-
-
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6 text-grey-400"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                />
-            </svg>
-        </label>
         <a href="">
             <svg
                 width="24"
@@ -81,55 +60,7 @@
             </svg>
         </a>
 
-        @fragment('publish-section')
-            <form
-                hx-patch="{{ route('digest.toPublish', $digest) }}"
-                method="POST"
-                swap="outerHTML"
-                target="this"
-            >
-                @csrf
-                @method('PATCH')
-                <input
-                    type="hidden"
-                    name="from"
-                    value="card"
-                >
-                <button type="submit">
-                    @if ($digest->is_published)
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6 text-green-400"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-                            />
-                        </svg>
-                    @else
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 3l1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 011.743-1.342 48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664L19.5 19.5"
-                            />
-                        </svg>
-                    @endif
-                </button>
-            </form>
-        @endfragment
+        <x-publish-unpublish :digest="$digest"></x-publish-unpublish>
 
         {{-- Admin --}}
     </section>

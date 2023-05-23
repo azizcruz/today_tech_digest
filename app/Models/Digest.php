@@ -64,6 +64,6 @@ class Digest extends Model
             })
             ->forAdmin()
             ->latest('created_at')
-            ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id', 'meta_description']);
+            ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id', 'meta_description', 'is_published']);
     }
 }
