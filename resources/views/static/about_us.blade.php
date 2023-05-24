@@ -5,7 +5,10 @@
 @endsection
 
 @section('main')
-    <div class="about-us my-4" scroll-region>
+    <section
+        class="about-us mt-24"
+        scroll-region
+    >
         <h2 class="text-2xl mb-2 font-bold">About Us</h2>
         <p>
             <span class="font-bold">QuickTechPoints</span> is a website
@@ -34,5 +37,5 @@
             up-to-date with the latest trends and developments in the tech
             world.
         </p>
-    </div>
+    </section>
 @endsection

@@ -1,14 +1,68 @@
 @extends('layouts.guest')
 
-@section('title')
-    Today Tech Digest
-@endsection
+@section('meta-tags')
+    <!-- Primary Meta Tags -->
+    <title>Short Science Articles</title>
+    <meta
+        name="title"
+        content="Short Science Articles ・ Today's Articles"
+    >
+    <meta
+        name="description"
+        content="Explore fascinating science articles presented in concise, easy-to-read list points on our website. Stay informed with our latest news updates, delivering the most recent discoveries and breakthroughs in the world of science. Discover intriguing insights and stay ahead in the realm of scientific knowledge. Dive into a captivating collection of science content today."
+    >
+
+
+
+    <!-- Open Graph / Facebook -->
+    <meta
+        property="og:type"
+        content="website"
+    >
+    <meta
+        property="og:url"
+        content="{{ Request::url() }}"
+    >
+    <meta
+        property="og:title"
+        content="Short Science Articles ・ Today's Articles"
+    >
+    <meta
+        property="og:description"
+        content="Explore fascinating science articles presented in concise, easy-to-read list points on our website. Stay informed with our latest news updates, delivering the most recent discoveries and breakthroughs in the world of science. Discover intriguing insights and stay ahead in the realm of scientific knowledge. Dive into a captivating collection of science content today."
+    >
+    <meta
+        property="og:image"
+        content="{{ url('/') }}/images/thumbnail.jpg"
+    >
+
+    <!-- Twitter -->
+    <meta
+        property="twitter:card"
+        content="summary_large_image"
+    >
+    <meta
+        property="twitter:url"
+        content="{{ Request::url() }}"
+    >
+    <meta
+        property="twitter:title"
+        content="Short Science Articles ・ Today's Articles"
+    >
+    <meta
+        property="twitter:description"
+        content="Explore fascinating science articles presented in concise, easy-to-read list points on our website. Stay informed with our latest news updates, delivering the most recent discoveries and breakthroughs in the world of science. Discover intriguing insights and stay ahead in the realm of scientific knowledge. Dive into a captivating collection of science content today."
+    >
+    <meta
+        property="twitter:image"
+        content="{{ url('/') }}/images/thumbnail.jpg"
+    >
 
 @section('main')
     @fragment('results')
         @if (count($digests) > 0)
             <section
-                class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4"
+                class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8"
                 id="results"
             >
                 @fragment('infinite-scroll-content')

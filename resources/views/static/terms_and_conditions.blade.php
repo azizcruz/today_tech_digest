@@ -5,7 +5,7 @@
 @endsection
 
 @section('main')
-    <article>
+    <article class="mt-24">
         <h3 class="font-bold mb-1 text-xl">TERMS AND CONDITIONS</h3>
         <p class="mb-4">
             By accessing and using this website, you agree to be bound by the

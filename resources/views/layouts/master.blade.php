@@ -48,8 +48,6 @@
         name="csrf-token"
         content="{{ csrf_token() }}"
     >
-    <title>@yield('title')</title>
-
     @yield('meta-tags')
     <!-- Fonts -->
     <link
@@ -78,7 +76,7 @@
     </script>
 </head>
 
-<body>
+<body class="overflow-hidden">
     @yield('content')
 
 

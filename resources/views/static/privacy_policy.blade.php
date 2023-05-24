@@ -5,7 +5,7 @@
 @endsection
 
 @section('main')
-    <article>
+    <article class="mt-24">
         <header>
             <h1 class="font-bold text-2xl mb-4">Privacy Policy</h1>
         </header>
