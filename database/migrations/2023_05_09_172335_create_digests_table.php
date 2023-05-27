@@ -23,8 +23,8 @@ return new class extends Migration
             $table->boolean('is_published')->default(false);
             $table->integer('views')->default(0);
             $table->string('keywords', 255)->default('');
-            $table->json('likes')->default('[]');
-            $table->json('dislikes')->default('[]');
+            // $table->json('likes')->default('[]');
+            // $table->json('dislikes')->default('[]');
             $table->string('image')->default('');
             $table->unsignedBigInteger('category_id');
 
