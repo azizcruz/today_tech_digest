@@ -45,3 +45,10 @@ RUN composer install --optimize-autoloader --no-dev
 RUN php artisan key:generate
 
 RUN php artisan config:clear
+
+RUN php artisan config:cache
+RUN php artisan event:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+
+
