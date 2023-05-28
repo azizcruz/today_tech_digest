@@ -19,6 +19,9 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath opcache
 # Enable Apache modules
 RUN a2enmod rewrite
 
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Copy the Apache virtual host file
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
@@ -28,27 +31,31 @@ RUN a2ensite 000-default
 # Restart Apache
 RUN service apache2 restart
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 # Set up Laravel
 COPY . /var/www/html
 
 # Set permissions for Laravel storage directory
 RUN chown -R www-data:www-data /var/www/html/storage/
-RUN chmod -R 665 /var/www/html/storage/
+RUN chmod -R 775 /var/www/html/storage/
 
-
-RUN composer install --optimize-autoloader --no-dev
+# Install Composer dependencies
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Generate application key
 RUN php artisan key:generate
 
+# Clear configuration cache
 RUN php artisan config:clear
 
+# Cache configuration, events, routes, and views
 RUN php artisan config:cache
 RUN php artisan event:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
-RUN composer dump-autoload
+
+# Set permissions for Laravel storage and sessions directories
+RUN chown -R www-data:www-data /var/www/html/storage/
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache/
+RUN chmod -R 775 /var/www/html/storage/
+RUN chmod -R 775 /var/www/html/bootstrap/cache/
 
