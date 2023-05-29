@@ -37,11 +37,12 @@ class AddAdmin extends Command
             $user = User::create([
                 'name' => $username,
                 'email' => $email,
-                'password' => Hash::make($password),
+                'password' => $password,
                 'isAdmin' => 1
             ]);
             $this->info('User created successfully');
         } catch (\Throwable $th) {
+            echo $th;
             $this->error('User exists');
         }
     }
