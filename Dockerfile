@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-RUN source ~/.bashrc
+RUN . ~/.bashrc
 RUN nvm install 16
 
 # Install PHP extensions
