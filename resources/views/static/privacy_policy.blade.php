@@ -13,7 +13,7 @@
             <section>
                 <h2 class="text-lg mb-1 font-bold">Introduction</h2>
                 <p>
-                    At <span class="font-bold">Today Tech Digest</span>, we take your privacy
+                    At <span class="font-bold">Short Science Articles</span>, we take your privacy
                     very seriously. We are committed to safeguarding your
                     personal information and protecting your privacy online.
                     This privacy policy explains how we collect, use, and

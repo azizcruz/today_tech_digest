@@ -11,31 +11,21 @@
     >
         <h2 class="text-2xl mb-2 font-bold">About Us</h2>
         <p>
-            <span class="font-bold">QuickTechPoints</span> is a website
-            dedicated to providing you with the latest technology news and
-            updates in all categories. We summarize the most important and
-            interesting articles into easy-to-read list points, so you can stay
-            informed even if you're short on time.
+            <span class="font-bold">Short Science Articles</span> is a website dedicated to providing you with short science
+            articles that summarize the latest scientific news and updates across various fields. We offer concise digests
+            of scientific articles, allowing you to stay informed even when you're short on time.
         </p>
         <p>
-            Our team of experienced writers and editors carefully curates the
-            content to ensure that you're getting only the best and most
-            relevant information. Whether you're interested in hardware,
-            software, mobile technology, gaming, artificial intelligence,
-            cybersecurity, social media, the Internet of Things (IoT), cloud
-            computing, virtual reality and augmented reality, blockchain and
-            cryptocurrency, emerging technologies, e-commerce, startups and
-            entrepreneurship, innovation and research, or any other
-            technology-related topic, we've got you covered.
+            Our team of experienced writers and editors carefully curates the content to ensure that you receive only the
+            best and most relevant scientific information. We cover a wide range of scientific topics, including physics,
+            chemistry, biology, astronomy, earth sciences, health, and more.
         </p>
         <p>
-            At <span class="font-bold">QuickTechPoints</span>, we believe that
-            technology should be accessible to everyone. That's why we strive to
-            present the information in a clear and concise manner, without using
-            technical jargon or complicated explanations. Our goal is to make
-            technology news easy and enjoyable to read, so you can stay
-            up-to-date with the latest trends and developments in the tech
-            world.
+            At <span class="font-bold">Short Science Articles</span>, we believe that science should be accessible to
+            everyone.
+            Therefore, we strive to present the information in a clear and concise manner, avoiding technical jargon and
+            complicated explanations. Our aim is to make scientific news easy and enjoyable to read, enabling you to stay
+            up-to-date with the latest discoveries and advancements in the world of science.
         </p>
     </section>
 @endsection

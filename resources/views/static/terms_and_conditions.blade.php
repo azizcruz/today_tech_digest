@@ -74,8 +74,9 @@
             time without notice. Your continued use of the website after any
             such modifications shall constitute your acceptance of the modified
             terms and conditions. If you have any questions or concerns about
-            these terms and conditions, please contact us at [Insert Contact
-            Information].
+            these terms and conditions.
+            {{-- please contact us at [Insert Contact
+            Information]. --}}
         </p>
     </article>
 @endsection

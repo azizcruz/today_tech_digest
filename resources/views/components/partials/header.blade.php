@@ -36,10 +36,10 @@
                         class="flex-grow flex-shrink"
                         href="{{ route('about-us') }}"
                     >About us</a></li>
-                <li><a
+                {{-- <li><a
                         class="flex-grow flex-shrink"
                         href="{{ route('contact-us') }}"
-                    >Contact</a></li>
+                    >Contact</a></li> --}}
                 <li><a
                         class="flex-grow flex-shrink"
                         href="{{ route('privacy-policy') }}"

@@ -69,8 +69,8 @@
                     @foreach ($digests as $digest)
                         @if ($loop->last && isset($paginationLinks))
                             <div
-                                hx-get="{{ $paginationLinks->next_page_url }}&infinite_scroll=1"
-                                hx-trigger="{{ $paginationLinks->total > 12 ? 'intersect once' : '' }}"
+                                hx-get="{{ $paginationLinks->next_page_url }}&infinite_scroll=1{{ $activeCategory ? '&category=' . $activeCategory . '' : '' }}"
+                                hx-trigger="{{ $paginationLinks->total > 12 && $paginationLinks->next_page_url ? 'intersect once' : '' }}"
                                 hx-swap="afterend"
                             >
                                 <x-digest-card
@@ -109,6 +109,8 @@
         @endif
     @endfragment
     @if (isset($paginationLinks))
-        <div class="my-4 htmx-indicator">Loading...</div>
+        <div class="flex justify-center items-center htmx-indicator">
+            <x-loaders.loader></x-loaders.loader>
+        </div>
     @endif
 @endsection

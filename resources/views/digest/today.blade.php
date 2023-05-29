@@ -133,7 +133,7 @@
             </section>
         @endforeach
     @else
-        <section class="flex h-52 justify-center items-center">
+        <section class="flex justify-center items-center h-52 mt-20">
             <p>The digests are coming, stay tuned 😉</p>
         </section>
     @endif
