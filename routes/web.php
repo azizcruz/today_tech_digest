@@ -59,7 +59,7 @@ Route::post('/search', [DigestController::class, 'search'])->name('search-digest
 
 
 Route::get('about-us', [StaticController::class, 'aboutUs'])->name('about-us');
-Route::get('contact-us', [StaticController::class, 'contactUs'])->name('contact-us');
+// Route::get('contact-us', [StaticController::class, 'contactUs'])->name('contact-us');
 Route::get('terms-and-conditions', [StaticController::class, 'termsAndConditions'])->name('terms-and-conditions');
 Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('privacy-policy');
 
