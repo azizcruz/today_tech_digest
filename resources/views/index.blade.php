@@ -57,7 +57,7 @@
         property="twitter:image"
         content="{{ url('/') }}/images/thumbnail.jpg"
     >
-
+@endsection
 @section('main')
     @fragment('results')
         @if (count($digests) > 0)
