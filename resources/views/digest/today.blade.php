@@ -22,7 +22,7 @@
     >
     <meta
         property="og:url"
-        content="/"
+        content="{{ Request::url() }}"
     >
     <meta
         property="og:title"
@@ -35,7 +35,7 @@
     >
     <meta
         property="og:image"
-        content="/images/thumbnail.jpg"
+        content="{{ url('/') }}/images/thumbnail.jpg"
     >
 
     <!-- Twitter -->
@@ -45,7 +45,7 @@
     >
     <meta
         property="twitter:url"
-        content="/"
+        content="{{ Request::url() }}"
     >
     <meta
         property="twitter:title"
@@ -58,7 +58,7 @@
     >
     <meta
         property="twitter:image"
-        content="/images/thumbnail.jpg"
+        content="{{ url('/') }}/images/thumbnail.jpg"
     >
 @endsection
 

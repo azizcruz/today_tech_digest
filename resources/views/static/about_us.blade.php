@@ -1,7 +1,16 @@
 @extends('layouts.guest')
 
-@section('title')
-    About us
+@section('meta_tags')
+    <title>About us</title>
+    <meta
+        name="title"
+        content="Short Science Articles ・ About us"
+    >
+
+    <meta
+        name="description"
+        content="Short Science Articles offers concise digests of the latest scientific news and updates across various fields. Stay informed with curated summaries on physics, chemistry, biology, astronomy, and more. We make science accessible by presenting clear and jargon-free information. Discover the latest advancements in the world of science with Short Science Articles."
+    />
 @endsection
 
 @section('main')
