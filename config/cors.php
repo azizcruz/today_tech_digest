@@ -17,17 +17,29 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => [
+        'POST',
+        'GET',
+        'OPTIONS',
+        'PUT',
+        'PATCH',
+        'DELETE',
+    ],
 
-    'allowed_origins' => ['https://www.short-science-articles.com'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => [
+        'Content-Type',
+        'X-Auth-Token',
+        'Origin',
+        'Authorization',
+    ],
 
     'exposed_headers' => ['*'],
 
-    'max_age' => 0,
+    'max_age' => 60 * 60 * 24,
 
     'supports_credentials' => false,
 
