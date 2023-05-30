@@ -4,7 +4,7 @@
     "description": "Explore fascinating science articles presented in concise, easy-to-read list points on our website. Stay informed with our latest news updates, delivering the most recent discoveries and breakthroughs in the world of science. Discover intriguing insights and stay ahead in the realm of scientific knowledge. Dive into a captivating collection of science content today.",
     "icons": [
         {
-            "src": "/android-chrome-192x192.png",
+            "src": "/images/android-chrome-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         }
