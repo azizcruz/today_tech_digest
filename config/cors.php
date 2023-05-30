@@ -26,7 +26,7 @@ return [
         'DELETE',
     ],
 
-    'allowed_origins' => ['https://www.short-science-articles.com', 'https://short-science-articles.com'],
+    'allowed_origins' => ['www.short-science-articles.com', 'short-science-articles.com'],
 
     'allowed_origins_patterns' => ['*'],
 
