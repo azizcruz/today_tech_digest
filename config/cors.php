@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', '/build/*'],
 
     'allowed_methods' => [
         'POST',
@@ -26,7 +26,7 @@ return [
         'DELETE',
     ],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://www.short-science-articles.com'],
 
     'allowed_origins_patterns' => ['*'],
 
