@@ -37,7 +37,7 @@ Route::get('/', function (Request $request) {
 
 
     return view('index', compact('digests', 'activeCategory', 'paginationLinks'))->fragment($infiniteScroll ? 'infinite-scroll-content' : '');
-})->name('home');
+})->name('home')->middleware(['throttle:6,1']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -46,22 +46,22 @@ Route::get('/', function (Request $request) {
 Route::resource('digest', DigestController::class)->only(['update']);
 
 
-Route::middleware(['auth', 'can:create-digest'])->group(function () {
+Route::middleware(['auth', 'can:create-digest', 'throttle:6,1'])->group(function () {
     Route::patch('digest/publish/{digest}', [DigestController::class, 'toPublish'])->name('digest.toPublish');
     Route::post('/digests', [DigestController::class, 'store'])->name('digest.store');
     Route::delete('/digests/{slug}', [DigestController::class, 'destroy'])->name('digest.destroy');
 });
 
 
-Route::get('/today', [DigestController::class, 'today'])->name('digest.today');
-Route::get('/digest/{slug}', [DigestController::class, 'show'])->name('digest.show');
-Route::post('/search', [DigestController::class, 'search'])->name('search-digests');
+Route::get('/today', [DigestController::class, 'today'])->name('digest.today')->middleware(['throttle:6,1']);
+Route::get('/digest/{slug}', [DigestController::class, 'show'])->name('digest.show')->middleware(['throttle:6,1']);
+Route::post('/search', [DigestController::class, 'search'])->name('search-digests')->middleware(['throttle:6,1']);
 
 
-Route::get('about-us', [StaticController::class, 'aboutUs'])->name('about-us');
+Route::get('about-us', [StaticController::class, 'aboutUs'])->name('about-us')->middleware(['throttle:6,1']);
 // Route::get('contact-us', [StaticController::class, 'contactUs'])->name('contact-us');
-Route::get('terms-and-conditions', [StaticController::class, 'termsAndConditions'])->name('terms-and-conditions');
-Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('terms-and-conditions', [StaticController::class, 'termsAndConditions'])->name('terms-and-conditions')->middleware(['throttle:6,1']);
+Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('privacy-policy')->middleware(['throttle:6,1']);
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
