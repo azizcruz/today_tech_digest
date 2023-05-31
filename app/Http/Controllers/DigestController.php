@@ -206,12 +206,18 @@ class DigestController extends Controller
      */
     public function destroy(string $slug)
     {
-        $digest = Digest::where('slug', $slug)->delete();
+        // Delete image
+        $digest =  Digest::where('slug', $slug)->get()->first();
+        $imageName = str_replace('images/', '', $digest->image);
+
+        if (Storage::delete("images/" . $imageName)) {
+            $digest->delete();
+        }
+
 
         if (!$digest) {
             return view('index')->with('error', 'Does not exist');
         }
-
         $digests = Digest::queryDigests();
 
         return 'OK';
