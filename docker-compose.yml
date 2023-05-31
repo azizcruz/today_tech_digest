@@ -22,7 +22,6 @@ services:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_USER: ${DB_USERNAME}
             MYSQL_PASSWORD: ${DB_PASSWORD}
-        command: --skip-grant-tables --skip-networking --skip-host-cache --skip-name-resolve --explicit_defaults_for_timestamp=1 --init-file /docker-entrypoint-initdb.d/reset.sql
 
     nodejs:
         image: wiwatsrt/docker-laravel-nodejs
