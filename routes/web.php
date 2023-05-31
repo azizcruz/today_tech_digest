@@ -6,6 +6,7 @@ use App\Http\Controllers\StaticController;
 use App\Models\Digest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\SitemapGenerator;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,10 @@ Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+Route::get('/sitemap.xml', function () {
+    SitemapGenerator::create(config('app.url'))->writeToFile(public_path('sitemap.xml'));
+    return response()->file(public_path('sitemap.xml'));
+});
 
 require __DIR__ . '/auth.php';
 
