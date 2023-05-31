@@ -11,6 +11,9 @@ services:
         depends_on:
             - db
         command: sh -c "chown -R www-data:www-data /var/www/html/storage/logs && chmod -R 775 /var/www/html/storage/logs && apache2-foreground"
+        networks:
+            - my-network
+
     db:
         image: mysql:8.0
         ports:
@@ -22,8 +25,16 @@ services:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_USER: ${DB_USERNAME}
             MYSQL_PASSWORD: ${DB_PASSWORD}
+        networks:
+            - my-network
 
     nodejs:
         image: wiwatsrt/docker-laravel-nodejs
         volumes:
             - ./www:/var/www
+        networks:
+            - my-network
+
+networks:
+    my-network:
+        driver: bridge
