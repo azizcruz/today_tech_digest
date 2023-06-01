@@ -6,8 +6,10 @@ use App\Policies\DigestPolicy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Spatie\Sitemap\Tags\Url;
 
-class Digest extends Model
+class Digest extends Model implements Sitemapable
 {
     use HasFactory;
 
@@ -19,6 +21,11 @@ class Digest extends Model
         'category_id',
         'image'
     ];
+
+    public function toSitemapTag(): Url|string|array
+    {
+        return route('digest.show', $this);
+    }
 
     public function getRouteKeyName()
     {
@@ -65,5 +72,10 @@ class Digest extends Model
             ->forAdmin()
             ->latest('created_at')
             ->paginate(12, ['title', 'body', 'image', 'slug', 'keywords', 'created_at', 'id', 'category_id', 'meta_description', 'is_published']);
+    }
+
+    public static function published()
+    {
+        return Digest::where('is_published', 1);
     }
 }

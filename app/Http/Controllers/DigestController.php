@@ -30,7 +30,7 @@ class DigestController extends Controller
 
         $todayDigests = Digest::with(['Category' => function ($query) {
             return $query->select(['id', 'name']);
-        }])->whereDate('created_at', today())->paginate(1);
+        }])->where('is_published', 1)->whereDate('created_at', today())->paginate(1);
 
 
         return view('digest.today', compact('todayDigests'))->fragment($navigate ? 'digest-navigations' : '');

@@ -6,7 +6,9 @@ use App\Http\Controllers\StaticController;
 use App\Models\Digest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Tags\Url;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,9 +72,24 @@ Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::get('/sitemap.xml', function () {
-    SitemapGenerator::create(config('app.url'))->writeToFile(public_path('sitemap.xml'));
-    return response()->file(public_path('sitemap.xml'));
+Route::get('/akhdemta3lkhadmasahbi', function () {
+    $sitemap = Sitemap::create()
+        ->add(Url::create(route('home'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_HOURLY))
+        ->add(Url::create('/today')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_HOURLY))
+        ->add(Url::create(route('about-us'))->setPriority(0.3)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+        ->add(Url::create(route('privacy-policy'))->setPriority(0.3)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+        ->add(Url::create(route('terms-and-conditions'))->setPriority(0.3)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+    -
+    /** Now you haved added custom URL's, now add dynamic URL's for SEO */
+    $digests = Digest::published()->get();
+    foreach ($digests as $digest) {
+        $sitemap->add(Url::create("/digest/{$digest->slug}")->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
+    }
+    $sitemap->writeToFile(public_path('sitemap.xml'));
+
+    return response()->json([
+        'ok' => 201
+    ]);
 });
 
 require __DIR__ . '/auth.php';
