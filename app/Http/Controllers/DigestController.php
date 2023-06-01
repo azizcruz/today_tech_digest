@@ -126,7 +126,7 @@ class DigestController extends Controller
             ->when($search, function ($query) use ($search) {
                 return $query->where('title', 'LIKE', '%' . $search . '%');
             })
-            ->orderBy('-created_at');
+            ->orderByDesc('created_at');
 
         $digests = $search ? $digests->get() : $digests->paginate(12)->withPath(route('home'));
 
