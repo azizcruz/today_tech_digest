@@ -79,8 +79,7 @@ Route::get('/akhdemta3lkhadmasahbi', function () {
         ->add(Url::create(route('about-us'))->setPriority(0.3)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
         ->add(Url::create(route('privacy-policy'))->setPriority(0.3)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
         ->add(Url::create(route('terms-and-conditions'))->setPriority(0.3)->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-    -
-    /** Now you haved added custom URL's, now add dynamic URL's for SEO */
+
     $digests = Digest::published()->get();
     foreach ($digests as $digest) {
         $sitemap->add(Url::create("/digest/{$digest->slug}")->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
