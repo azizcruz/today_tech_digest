@@ -72,7 +72,7 @@ Route::get('privacy-policy', [StaticController::class, 'privacyPolicy'])->name('
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::get('/akhdemta3lkhadmasahbi', function () {
+Route::get('/sitemap.xml', function () {
     $sitemap = Sitemap::create()
         ->add(Url::create(route('home'))->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_HOURLY))
         ->add(Url::create('/today')->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_HOURLY))
@@ -84,11 +84,9 @@ Route::get('/akhdemta3lkhadmasahbi', function () {
     foreach ($digests as $digest) {
         $sitemap->add(Url::create("/digest/{$digest->slug}")->setPriority(0.8)->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
     }
-    $sitemap->writeToFile(public_path('sitemap.xml'));
 
-    return response()->json([
-        'ok' => 201
-    ]);
+
+    return $sitemap;
 });
 
 require __DIR__ . '/auth.php';
