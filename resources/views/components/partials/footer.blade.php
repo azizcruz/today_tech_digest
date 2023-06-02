@@ -14,6 +14,6 @@
         </a>
     </div> --}}
     <div>
-        <p>Copyright © 2023 - All right reserved by quickles.com</p>
+        <p>Copyright © 2023 - All right reserved by short-science-articles.com</p>
     </div>
 </footer>

@@ -5,28 +5,27 @@ services:
             context: .
             dockerfile: Dockerfile
         ports:
-            - "80:80"
+            - "81:80"
         volumes:
             - .:/var/www/html
-        depends_on:
-            - db
-        command: sh -c "chown -R www-data:www-data /var/www/html/storage/logs && chmod -R 775 /var/www/html/storage/logs && apache2-foreground"
+        # depends_on:
+        #     - db
         networks:
             - my-network
 
-    db:
-        image: mysql:8.0
-        ports:
-            - "3306:3306"
-        volumes:
-            - ./mysql:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_USER: ${DB_USERNAME}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-        networks:
-            - my-network
+    # db:
+    #     image: mysql:8.0
+    #     ports:
+    #         - "3306:3306"
+    #     volumes:
+    #         - ./mysql:/var/lib/mysql
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    #         MYSQL_DATABASE: ${DB_DATABASE}
+    #         MYSQL_USER: ${DB_USERNAME}
+    #         MYSQL_PASSWORD: ${DB_PASSWORD}
+    #     networks:
+    #         - my-network
 
     nodejs:
         image: wiwatsrt/docker-laravel-nodejs

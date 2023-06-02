@@ -4,6 +4,9 @@ FROM php:8.2-apache
 # Set the working directory
 WORKDIR /var/www/html
 
+# Set up Laravel
+COPY . /var/www/html
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -34,9 +37,6 @@ RUN a2ensite 000-default
 
 # Restart Apache
 RUN service apache2 restart
-
-# Set up Laravel
-COPY . /var/www/html
 
 # Set permissions for Laravel storage directory
 RUN chown -R www-data:www-data /var/www/html/storage/
