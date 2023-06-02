@@ -126,5 +126,5 @@
         </a>
     </div>
     <div class="my-4 border-t-amber-100"></div>
-    <article class="details-page">{{ $digest->body }}</article>
+    <article class="details-page">{!! $digest->body !!}</article>
 </article>
