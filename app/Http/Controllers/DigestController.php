@@ -50,7 +50,7 @@ class DigestController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|min:60|max:70|unique:digests',
+            'title' => 'required|string|min:60|max:85|unique:digests',
             'body' => 'required|string',
             'metaDescription' => 'required|string',
             'category' => 'required|string|exists:categories,id',
