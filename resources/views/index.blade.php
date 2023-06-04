@@ -68,21 +68,25 @@
                 @fragment('infinite-scroll-content')
                     @foreach ($digests as $digest)
                         @if ($loop->last && isset($paginationLinks))
-                            <div
-                                hx-get="{{ $paginationLinks->next_page_url }}&infinite_scroll=1{{ isset($activeCategory) ? '&category=' . $activeCategory . '' : '' }}"
-                                hx-trigger="{{ $paginationLinks->total > 12 && $paginationLinks->next_page_url ? 'intersect once' : '' }}"
-                                hx-swap="afterend"
-                            >
-                                <x-digest-card
-                                    :digest="$digest"
-                                    digestId="{{ $digest->id }}"
-                                    imageUrl="{{ $digest->image }}"
-                                    category="{{ $digest->category->name }}"
-                                    href="{{ route('digest.show', ['slug' => $digest->slug]) }}"
-                                    title="{!! $digest->title !!}"
-                                    page="{{ isset($paginationLinks) ? $paginationLinks->current_page : '' }}"
-                                    is_published="{{ $digest->is_published }}"
-                                />
+                            @if ($paginationLinks->next_page_url)
+                                <div
+                                    hx-get="{{ $paginationLinks->next_page_url }}&infinite_scroll=1{{ isset($activeCategory) ? '&category=' . $activeCategory . '' : '' }}"
+                                    hx-trigger="{{ $paginationLinks->total > 12 && $paginationLinks->next_page_url ? 'intersect once' : '' }}"
+                                    hx-swap="afterend"
+                                >
+                                @else
+                                    <div>
+                            @endif
+                            <x-digest-card
+                                :digest="$digest"
+                                digestId="{{ $digest->id }}"
+                                imageUrl="{{ $digest->image }}"
+                                category="{{ $digest->category->name }}"
+                                href="{{ route('digest.show', ['slug' => $digest->slug]) }}"
+                                title="{!! $digest->title !!}"
+                                page="{{ isset($paginationLinks) ? $paginationLinks->current_page : '' }}"
+                                is_published="{{ $digest->is_published }}"
+                            />
                             </div>
                         @else
                             <x-digest-card
