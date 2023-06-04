@@ -108,19 +108,18 @@
                             body="{{ $digest->body }}"
                         ></x-digest-view>
 
-
                         </article>
                         <div>
                             <div class="btn-group grid grid-cols-2 mt-6">
                                 <x-navigation-button
-                                    url="{{ $todayDigests->previousPageUrl() }}&navigate=1"
+                                    url="{{ $todayDigests->previousPageUrl() ? str_replace('http', 'https', $todayDigests->previousPageUrl()) : '' }}&navigate=1"
                                     title="Previous"
                                     classes="btn btn-outline {{ $todayDigests->previousPageUrl() ? '' : 'pointer-events-none opacity-50' }}"
                                 >
                                 </x-navigation-button>
 
                                 <x-navigation-button
-                                    url="{{ $todayDigests->nextPageUrl() }}&navigate=1"
+                                    url="{{ $todayDigests->nextPageUrl() ? str_replace('http', 'https', $todayDigests->nextPageUrl()) : '' }}&navigate=1"
                                     title="Next"
                                     classes="btn btn-outline {{ $todayDigests->nextPageUrl() ? '' : 'pointer-events-none opacity-50' }}"
                                 >
