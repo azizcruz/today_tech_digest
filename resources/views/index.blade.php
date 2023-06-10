@@ -70,7 +70,7 @@
                         @if ($loop->last && isset($paginationLinks))
                             @if ($paginationLinks->next_page_url)
                                 <div
-                                    hx-get="{{ $paginationLinks->next_page_url ? str_replace('http', 'https', $todayDigests->next_page_url()) : '' }}&infinite_scroll=1{{ isset($activeCategory) ? '&category=' . $activeCategory . '' : '' }}"
+                                    hx-get="{{ $paginationLinks->next_page_url ? str_replace('http', 'https', $todayDigests->next_page_url) : '' }}&infinite_scroll=1{{ isset($activeCategory) ? '&category=' . $activeCategory . '' : '' }}"
                                     hx-trigger="{{ $paginationLinks->total > 12 && $paginationLinks->next_page_url ? 'intersect once' : '' }}"
                                     hx-swap="afterend"
                                 >
