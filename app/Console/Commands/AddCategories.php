@@ -37,7 +37,8 @@ class AddCategories extends Command
             "Medicine",
             "Physics",
             "Psychology",
-            "Technology"
+            "Technology",
+            "Nutrition"
         );
 
         foreach ($categories as $name) {
